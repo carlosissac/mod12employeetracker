@@ -1,0 +1,24 @@
+{
+  "name": "mod12employeetracker",
+  "version": "1.0.0",
+  "description": "mod12employeetracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlosissac/mod12employeetracker.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carlosissac/mod12employeetracker/issues"
+  },
+  "homepage": "https://github.com/carlosissac/mod12employeetracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}

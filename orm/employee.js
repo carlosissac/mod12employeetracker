@@ -74,7 +74,6 @@ Employee.prototype.post = async function(EmployeeFirstName, EmployeeLastName, Ma
                 conn.destroy();
                 //New EmployeeID is returned
                 return rows.insertId;
-
             } else {
                 return 'Employee Post NA';
             }

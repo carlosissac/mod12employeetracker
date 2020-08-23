@@ -8,14 +8,7 @@ const dept = new Department();
 const emp = new Employee();
 const rol = new Role();
 
-//dept.getAll();
-//dept.getSingle(2);
-//dept.post('Facilities');
-//dept.put(9,'InfoSec');
-//dept.delete(7);
-
 general = async () => {
-
 //const array = await emp.getAll();
 //console.log(array);
 //const array = await emp.getSingle(2);
@@ -30,21 +23,19 @@ general = async () => {
 //console.log(array);
 //dept.post('');
 //dept.put('9','New Product Introduction');
-dept.delete('9');
+//const str = await dept.delete('9');
+//console.log(str);
+
+//const array = await rol.getAll();
+//console.log(array);
+//const array = await rol.getSingle(3);
+//console.log(array);
+//const array = await rol.post('New Product Engineer','115000','3');
+//console.log(array);
+//rol.put('9','New Product Engineer','','4');
+//rol.delete('9');
 
 };
 
 
 general();
-
-
-//emp.getSingle(2);
-//emp.post('Echo', 'Echo', '', 4);
-//emp.put(11,'','','','5');
-//emp.delete(11);
-
-//rol.getAll();
-//rol.getSingle(2);
-//rol.post('Production Engineer', '135000', 2);
-//rol.put(11,'','','5');
-//rol.delete(11);

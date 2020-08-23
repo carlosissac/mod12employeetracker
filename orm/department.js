@@ -1,75 +1,105 @@
-const db = require('../mysql/connection');
+const { getConnection } = require('../mysql/connection');
 
 const Department = function() {
     this.ID = 'Department';
+    this.objDep = {
+        'DepartmentID' : '',
+        'DepartmentName' : ''
+    };
 };
 
 Department.prototype.getAll = async function() {
     const qString = 'SELECT * FROM employeeTracker.Departments;';
-    console.log('Departments - List All Available');
-    await db.query(qString, (err,res) => {
-        if(err) {
-            throw err;
-        }
-        res.forEach(element => {
-            console.log(`${element.DepartmentID} .- ${element.DepartmentName}`);
-        });
+    console.log(qString);
+    const conn = await getConnection();
+    const [rows, fields] = await conn.query(qString);
+    conn.destroy();
+
+    let array = [];
+    rows.forEach(element => {
+        this.objDep = {};
+        this.objDep.DepartmentID = element.DepartmentID;
+        this.objDep.DepartmentName = element.DepartmentName;
+        array.push(this.objDep);
     });
+    return array;
 };
 
 Department.prototype.getSingle = async function(DepartmentID) {
-    const qString = `SELECT * FROM employeeTracker.Departments WHERE DepartmentID = ${DepartmentID};`;
-    console.log('Departments - Search Single');
-    await db.query(qString, (err,res) => {
-        if(err) {
-            throw err;
-        }
-        res.forEach(element => {
-            console.log(`DepartmentID: ${element.DepartmentID} - ${element.DepartmentName}`);
+    if(DepartmentID !== '') {
+        const qString = `SELECT * FROM employeeTracker.Departments WHERE DepartmentID = ${DepartmentID};`;
+        console.log(qString);
+        const conn = await getConnection();
+        const [rows, fields] = await conn.query(qString);
+        conn.destroy();
+    
+        let array = [];
+        rows.forEach(element => {
+            this.objDep = {};
+            this.objDep.DepartmentID = element.DepartmentID;
+            this.objDep.DepartmentName = element.DepartmentName;
+            array.push(this.objDep);
         });
-    });
+        return array;
+    } else {
+        return 'Department GetSingle NA';
+    }
 };
 
 Department.prototype.post = async function(DepartmentName) {
-    const query = 'INSERT INTO employeeTracker.Departments (DepartmentName)';
-    const d1 = 'VALUES (';
-    const d2 = ');';
-    const dinsert = `'${DepartmentName}'`;
-    const qString = query + ' ' + d1 + dinsert + d2;
-    console.log(qString);
-    await db.query(qString, (err,res) => {
-        if(err) {
-            throw err;
-        }
-        console.log(`New DepartmentID: ${res.insertId}`);
-    });
+    if(DepartmentName !== '') {
+        const query = 'INSERT INTO employeeTracker.Departments (DepartmentName) ';
+        const d1 = 'VALUES (';
+        const d2 = ');';
+        const dinsert = `'${DepartmentName}'`;
+        const qString = query + d1 + dinsert + d2;
+        console.log(qString);
+    
+        const conn = await getConnection();
+        const [rows, fields] = await conn.query(qString);
+        conn.destroy();
+        //New DepartmentID is returned
+        return rows.insertId;
+    } else {
+        return 'Department Post NA';
+    }
 };
 
 Department.prototype.put = async function(DepartmentID, DepartmentName) {
-    const qu = 'UPDATE employeeTracker.Departments ';
-    const se = `SET DepartmentName = '${DepartmentName}' `;
-    const wh = `WHERE DepartmentID = ${DepartmentID};`;
-    qString = qu + se + wh;
-    console.log(qString);
-    await db.query(qString, (err,res) => {
-        if(err) {
-            throw err;
-        }
-        console.log(`Updated Department Rows: ${res.changedRows}`);
-    });
+    if(DepartmentID !== '') {
+        if(DepartmentName !== '') {
+            const qu = 'UPDATE employeeTracker.Departments ';
+            const se = `SET DepartmentName = '${DepartmentName}' `;
+            const wh = `WHERE DepartmentID = ${DepartmentID};`;
+            qString = qu + se + wh;
+            console.log(qString);
+
+            const conn = await getConnection();
+            const [rows, fields] = await conn.query(qString);
+            conn.destroy();
+            return `Department Update Status: ${rows.info}`;
+        } else {
+            return 'Department Put NA';
+        }    
+    } else {
+        return 'Department Put NA';
+    }
 };
 
 Department.prototype.delete = async function(DepartmentID) {
+    if(DepartmentID !== '') {
     const qu = 'DELETE FROM employeeTracker.Departments ';
     const wh = `WHERE DepartmentID = ${DepartmentID};`;
     qString = qu + wh;
     console.log(qString);
-    await db.query(qString, (err,res) => {
-        if(err) {
-            throw err;
-        }
-        console.log(`Deleted Department Rows: ${res.affectedRows}`);
-    });
+
+    const conn = await getConnection();
+    const [rows, fields] = await conn.query(qString);
+    conn.destroy();
+    return `Department Deleted: ${rows.affectedRows}`;
+    } else {
+        return 'Department Delete NA';
+    }
 };
 
 module.exports = { Department };

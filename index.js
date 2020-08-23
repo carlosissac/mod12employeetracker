@@ -24,13 +24,20 @@ general = async () => {
 //emp.put('10','karyn','CLARKE','NULL','4');
 //emp.delete('10');
 
+//const array = await dept.getAll();
+//console.log(array);
+//const array = await dept.getSingle(2);
+//console.log(array);
+//dept.post('');
+//dept.put('9','New Product Introduction');
+dept.delete('9');
+
 };
 
 
 general();
 
-//const allemp = await emp.getAll();
-//console.log(allemp);
+
 //emp.getSingle(2);
 //emp.post('Echo', 'Echo', '', 4);
 //emp.put(11,'','','','5');

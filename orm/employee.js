@@ -50,7 +50,6 @@ Employee.prototype.getSingle = async function(EmployeeID) {
             array.push(this.objEmp);
         });
         return array;
-
     } else {
         return 'Employee GetSingle NA';
     }

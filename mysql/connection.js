@@ -1,19 +1,16 @@
-var mysql = require('mysql');
+var mysql = require('mysql2/promise');
 
-var connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'Htconem8',
-    database: 'employeeTracker'
-});
-
-connection.connect(err => {
-    if (err) {
-        console.error(`error connecting: ${err.stack}`);
-        return;
+    getConnection = async () => {
+        const c = await mysql.createPool ({
+            connectionLimit: 20,
+            host:'localhost',
+            port: 3306,
+            namedPlaceholders: true,
+            user: 'root',
+            password: 'Htconem8',
+            database: 'employeeTracker'
+        });
+        return c.getConnection();
     }
-    console.log(`connected as id ${connection.threadId}`);
-});
 
-module.exports = connection;
+module.exports = { getConnection };

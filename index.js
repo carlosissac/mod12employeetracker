@@ -14,7 +14,23 @@ const rol = new Role();
 //dept.put(9,'InfoSec');
 //dept.delete(7);
 
-//emp.getAll();
+general = async () => {
+
+//const array = await emp.getAll();
+//console.log(array);
+//const array = await emp.getSingle(2);
+//console.log(array);
+//emp.post('karyn','Clarke','2','1');
+//emp.put('10','karyn','CLARKE','NULL','4');
+//emp.delete('10');
+
+};
+
+
+general();
+
+//const allemp = await emp.getAll();
+//console.log(allemp);
 //emp.getSingle(2);
 //emp.post('Echo', 'Echo', '', 4);
 //emp.put(11,'','','','5');
@@ -25,5 +41,3 @@ const rol = new Role();
 //rol.post('Production Engineer', '135000', 2);
 //rol.put(11,'','','5');
 //rol.delete(11);
-
-

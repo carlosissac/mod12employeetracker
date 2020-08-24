@@ -31,6 +31,26 @@ Employee.prototype.getAll = async function() {
     return array;
 };
 
+Employee.prototype.getAll = async function() {
+    const qString = 'SELECT * FROM employeeTracker.Employees;';
+    console.log(qString);
+    const conn = await getConnection();
+    const [rows, fields] = await conn.query(qString);
+    conn.destroy();
+
+    let array = [];
+    rows.forEach(element => {
+        this.objEmp = {};
+        this.objEmp.EmployeeID = element.EmployeeID;
+        this.objEmp.EmployeeFirstName = element.EmployeeFirstName;
+        this.objEmp.EmployeeLastName = element.EmployeeLastName;
+        this.objEmp.ManagerID = element.ManagerID;
+        this.objEmp.RoleID = element.RoleID;
+        array.push(this.objEmp);
+    });
+    return array;
+};
+
 Employee.prototype.getSingle = async function(EmployeeID) {
     if(EmployeeID !== '') {
         const qString = `SELECT * FROM employeeTracker.Employees WHERE EmployeeID = ${EmployeeID};`;

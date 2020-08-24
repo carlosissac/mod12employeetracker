@@ -8,7 +8,6 @@ const Seed = function() {
 Seed.prototype = Object.create(Initial.prototype);
 
 Seed.prototype.initial = async function() {
-
     await this.initialDepartment('Enterprise Platform');
     await this.initialDepartment('Marketplace Acceleration');
     await this.initialDepartment('Business Intelligence');
@@ -34,7 +33,6 @@ Seed.prototype.initial = async function() {
     await this.initialEmployees('Echo', 'Echo', '5', '7');
     await this.initialEmployees('Kai', 'Cunningham', '5', '8');
     await this.initialEmployees('Brian', 'Soldani', '5', '3');
-    
 };
 
 const s = new Seed();

@@ -9,8 +9,8 @@ const ManagerView = function() {
     };
 };
 
-EmployeeView.prototype.getAllSortByDeptID = async function() {
-    const qString = 'SELECT * FROM employeeTracker.employeeviewsortbydepartmentid;';
+ManagerView.prototype.getAllSortByDeptID = async function() {
+    const qString = 'SELECT * FROM employeeTracker.managerviewsortmanagerid;';
     console.log(qString);
     const conn = await getConnection();
     const [rows, fields] = await conn.query(qString);

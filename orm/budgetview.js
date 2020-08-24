@@ -9,7 +9,7 @@ const BudgetView = function() {
     };
 };
 
-EmployeeView.prototype.getAllSortByDeptID = async function() {
+BudgetView.prototype.getAllSortByDeptID = async function() {
     const qString = 'SELECT * FROM employeeTracker.departmetbudgetviewsortbydepartmentid;';
     console.log(qString);
     const conn = await getConnection();

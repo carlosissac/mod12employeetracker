@@ -77,15 +77,16 @@ FROM employeeTracker.Employees emp
 
 CREATE VIEW employeeTracker.employeeViewSortByManagerID
 AS
-SELECT  emp.EmployeeID id,  
+SELECT  emp.EmployeeID employee_id,  
 		emp.EmployeeFirstName first_name, 
         emp.EmployeeLastName last_name,
-        rol.RoleTitle title,
+        rol.RoleID role_id, 
+        rol.RoleTitle role_title,
         dept.DepartmentID department_id,
-        dept.DepartmentName department,
-        rol.RoleSalary salary,
+        dept.DepartmentName department_title,
+        rol.RoleSalary role_salary,
         emp.ManagerID AS manager_id,
-		CONCAT(emp2.EmployeeFirstName, ' ' ,emp2.EmployeeLastName) AS manager
+		CONCAT(emp2.EmployeeFirstName, ' ' ,emp2.EmployeeLastName) AS manager_fullname
 FROM employeeTracker.Employees emp
 	INNER JOIN employeeTracker.Roles rol
 		ON emp.RoleID = rol.RoleID

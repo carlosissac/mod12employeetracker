@@ -3,10 +3,16 @@ const constab = require('console.table');
 const { Department } = require('./orm/department');
 const { Employee } = require('./orm/employee');
 const { Role } = require('./orm/role');
+const { EmployeeView } = require('./orm/employeeview');
+const { ManagerView } = require('./orm/managerview');
+const { BudgetView } = require('./orm/budgetview');
 
 const dept = new Department();
 const emp = new Employee();
 const rol = new Role();
+const empvw = new EmployeeView();
+const mgrvw = new ManagerView();
+const bdgtvw = new BudgetView();
 
 general = async () => {
 //const array = await emp.getAll();
@@ -34,6 +40,19 @@ general = async () => {
 //console.log(array);
 //rol.put('9','New Product Engineer','','4');
 //rol.delete('9');
+
+//const array = await empvw.getAllSortByDeptID();
+//console.log(array);
+//const array = await empvw.getAllSortByEmpID();
+//console.log(array);
+//const array = await empvw.getAllSortByManagerID();
+//console.log(array);
+//const array = await mgrvw.getAllSortByDeptID();
+//console.log(array);
+//const array = await mgrvw.getAllSortByDeptID();
+//console.log(array);
+const array = await bdgtvw.getAllSortByDeptID();
+console.log(array);
 
 };
 

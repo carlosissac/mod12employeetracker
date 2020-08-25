@@ -10,7 +10,6 @@ const Department = function() {
 
 Department.prototype.getAll = async function() {
     const qString = 'SELECT * FROM employeeTracker.Departments;';
-    console.log(qString);
     const conn = await getConnection();
     const [rows, fields] = await conn.query(qString);
     conn.destroy();
@@ -28,7 +27,6 @@ Department.prototype.getAll = async function() {
 Department.prototype.getSingle = async function(DepartmentID) {
     if(DepartmentID !== '') {
         const qString = `SELECT * FROM employeeTracker.Departments WHERE DepartmentID = ${DepartmentID};`;
-        console.log(qString);
         const conn = await getConnection();
         const [rows, fields] = await conn.query(qString);
         conn.destroy();
@@ -53,7 +51,6 @@ Department.prototype.post = async function(DepartmentName) {
         const d2 = ');';
         const dinsert = `'${DepartmentName}'`;
         const qString = query + d1 + dinsert + d2;
-        console.log(qString);
     
         const conn = await getConnection();
         const [rows, fields] = await conn.query(qString);
@@ -72,7 +69,6 @@ Department.prototype.put = async function(DepartmentID, DepartmentName) {
             const se = `SET DepartmentName = '${DepartmentName}' `;
             const wh = `WHERE DepartmentID = ${DepartmentID};`;
             qString = qu + se + wh;
-            console.log(qString);
 
             const conn = await getConnection();
             const [rows, fields] = await conn.query(qString);
@@ -91,7 +87,6 @@ Department.prototype.delete = async function(DepartmentID) {
     const qu = 'DELETE FROM employeeTracker.Departments ';
     const wh = `WHERE DepartmentID = ${DepartmentID};`;
     qString = qu + wh;
-    console.log(qString);
 
     const conn = await getConnection();
     const [rows, fields] = await conn.query(qString);

@@ -57,6 +57,12 @@ EmployeeTracker.prototype.inquierElements = function() {
         'DepartmentName' : ''
     };
 
+    this.disp5 = {
+        'RoleID' : '',
+        'RoleTitle' : '',
+        'RoleSalary' : ''
+    };
+
     this.departmentid = {
         type: 'input',
         name: 'attribute', 
@@ -75,22 +81,57 @@ EmployeeTracker.prototype.inquierElements = function() {
         type: 'list',
         name: 'mainmenu',//mainmenu
         message: 'EMPLOYEE TRACKER - MAIN MENU',
-        choices: ['1.View Reports','2.Admin Tasks','3.Exit App']
+        choices: ['1.View Reports',
+                '2.Admin Tasks',
+                '3.Exit App']
     };
 
     this.viewreportsmenu = {
         type: 'list',
         name: 'viewreports',//viewreports
         message: 'VIEW REPORTS - OPTIONS',
-        choices: ['1.View All Employees by ID','2.View All Employees by Department','3.View All Employees by Manager','4.View Employees assigned to a Manager','5.List All Department Budgets','6.Specific Department Budget']
+        choices: ['1.View All Employees by ID',
+            '2.View All Employees by Department',
+            '3.View All Employees by Manager',
+            '4.View All Available Departments',
+            '5.View All Available Roles',
+            '6.View Employees assigned to a Manager',
+            '7.List All Department Budgets',
+            '8.Search Department Budget']
     };
 
     this.admintasksmenu = {
         type: 'list',
         name: 'admintasksmenu',//admintasksmenu
         message: 'ADMIN TASKS - OPTIONS',
-        choices: ['1.Create New Employee','2.Delete Employee','3.Assign Employee to Department','4.Assign Employee to Manager','5.Create New Departemt','6.Update Department','8.Delete Department','9.Create New Role','A.Update Role','B.Delete Role','C.Load Schema & Seed Data']
+        choices: ['1.Create New Employee',
+            '2.Delete Employee',
+            '3.Assign Employee to Department',
+            '4.Assign Employee to Manager',
+            '5.Create New Departemt',
+            '6.Update Department',
+            '7.Delete Department',
+            '8.Create New Role',
+            '9.Update Role',
+            'A.Delete Role',
+            'B.Load Schema & Seed Data']
     };
+};
+
+EmployeeTracker.prototype.roleArrayHandler = function(array) {
+    let disp_array = [];
+    array.forEach(element => {
+        this.disp5 = {};
+        this.disp5.RoleID = element.RoleID;
+        this.disp5.RoleTitle = element.RoleTitle;
+        this.disp5.RoleSalary = element.RoleSalary;   
+        disp_array.push(this.disp5);
+    });
+    if(!disp_array.length) {
+        return 'managerArrayHandler - No Records Were Found By Search';
+    } else {
+        return disp_array;
+    }
 };
 
 EmployeeTracker.prototype.managerArrayHandler = function(array) {
@@ -181,35 +222,44 @@ EmployeeTracker.prototype.employeeArrayHandler = function(array) {
 };
 
 EmployeeTracker.prototype.adminTasks = async function(option) {
-    let i = 0;
+    let i = option;
     while(i<8) {
         switch(i) {
             case 1:
                 //1.Create New Employee
+
             break;
             case 2:
                 //2.Delete Employee
+
             break;
             case 3:
                 //3.Assign Employee to Department
+
             break;
             case 4:
                 //4.Assign Employee to Manager
+
             break;
             case 5:
                 //5.Create New Departemt
+
             break;
             case 6:
                 //6.Update Department
+
             break;
             case 7:
                 //7.Delete Department
+
             break;
             case 8:
                 //8.Create New Role
+
             break;
             case 9:
                 //9.Update Role
+
             break;
             case 'A':
                 //A.Delete Role
@@ -229,10 +279,10 @@ EmployeeTracker.prototype.adminTasks = async function(option) {
 
 EmployeeTracker.prototype.viewReports = async function(option) {
     let i = option;
-    while(i<8) {
+    while(i<9) {
         switch(i) {
             case 1:
-                //1.View All Employees by EmployeeID
+                //1.View All Employees by ID
                 let disp_array1 = [];
                 const array1 = await empvw.getAllSortByEmpID();
                 disp_array1 = this.employeeArrayHandler(array1);
@@ -253,43 +303,57 @@ EmployeeTracker.prototype.viewReports = async function(option) {
                 console.table(disp_array3);
             break;
             case 4:
-                //4.View Employees assigned to a Manager
-                let disp_array4A = [];
-                const array4A = await mgrvw.getAllSortByManagerID();
-                disp_array4A = this.managerArrayHandler(array4A);               
-                console.table(disp_array4A);
-
-                const mngr = await inquirer.prompt(this.managerid);
-                let disp_array4B = [];
-                const array4B = await empvw.getSingleFindByManagerID(String(mngr.attribute));
-                disp_array4B = this.employeeArrayHandler(array4B);           
-                console.table(disp_array4B);
+                //4.View All Available Departments
+                let disp_array4 = [];
+                const array4 = await dept.getAll();
+                disp_array4 = this.departmentArrayHandler_A(array4);   
+                console.table(disp_array4);
             break;
             case 5:
-                //5.List All Department Budgets
+                //5.View All Available Roles
                 let disp_array5 = [];
-                const array5 = await bdgtvw.getAllSortByDepartmentID();
-                disp_array5 = this.departmentArrayHandler(array5);   
+                const array5 = await rol.getAll();
+                disp_array5 = this.roleArrayHandler(array5);   
                 console.table(disp_array5);
             break;
             case 6:
-                //6.Specific Department Budget
+                //6.View Employees assigned to a Manager
                 let disp_array6A = [];
-                const array6A = await bdgtvw.getAllSortByDepartmentID();
-                disp_array6A = this.departmentArrayHandler_A(array6A);
+                const array6A = await mgrvw.getAllSortByManagerID();
+                disp_array6A = this.managerArrayHandler(array6A);               
                 console.table(disp_array6A);
 
-                const bdgt = await inquirer.prompt(this.departmentid);
+                const mngr = await inquirer.prompt(this.managerid);
                 let disp_array6B = [];
-                const array6B = await bdgtvw.getSingle(String(bdgt.attribute));
-                disp_array6B = this.departmentArrayHandler(array6B);  
+                const array6B = await empvw.getSingleFindByManagerID(String(mngr.attribute));
+                disp_array6B = this.employeeArrayHandler(array6B);           
                 console.table(disp_array6B);
+            break;
+            case 7:
+                //7.List All Department Budgets
+                let disp_array7 = [];
+                const array7 = await bdgtvw.getAllSortByDepartmentID();
+                disp_array7 = this.departmentArrayHandler(array7);   
+                console.table(disp_array7);
+            break;
+            case 8:
+                //8.Search Department Budget
+                let disp_array8A = [];
+                const array8A = await bdgtvw.getAllSortByDepartmentID();
+                disp_array8A = this.departmentArrayHandler_A(array8A);
+                console.table(disp_array8A);
+
+                const bdgt = await inquirer.prompt(this.departmentid);
+                let disp_array8B = [];
+                const array8B = await bdgtvw.getSingle(String(bdgt.attribute));
+                disp_array8B = this.departmentArrayHandler(array8B);  
+                console.table(disp_array8B);
             break;
             default:
                 console.log('Invalid Options');
             break;
         }
-        i = 8;
+        i = 9;
     }
 };
 

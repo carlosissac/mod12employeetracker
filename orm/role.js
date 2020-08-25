@@ -12,7 +12,6 @@ const Role = function() {
 
 Role.prototype.getAll = async function() {
     const qString = 'SELECT * FROM employeeTracker.Roles;';
-    console.log(qString);
     const conn = await getConnection();
     const [rows, fields] = await conn.query(qString);
     conn.destroy();
@@ -32,7 +31,6 @@ Role.prototype.getAll = async function() {
 Role.prototype.getSingle = async function(RoleID) {
     if(RoleID !== '') {
         const qString = `SELECT * FROM employeeTracker.Roles WHERE RoleID = ${RoleID};`;
-        console.log(qString);
         const conn = await getConnection();
         const [rows, fields] = await conn.query(qString);
         conn.destroy();
@@ -61,7 +59,6 @@ Role.prototype.post = async function(RoleTitle, RoleSalary, DepartmentID) {
                 const dinsert = `'${RoleTitle}', '${RoleSalary}', '${DepartmentID}'`;
                 const d2 = ');';
                 const qString = query + d1 + dinsert + d2;
-                console.log(qString);
 
                 const conn = await getConnection();
                 const [rows, fields] = await conn.query(qString);
@@ -131,7 +128,6 @@ Role.prototype.put = async function(RoleID, RoleTitle, RoleSalary, DepartmentID)
         const paramStr = this.genParamStr(this.objRole);
         const whereString = `WHERE RoleID = ${this.objRole.RoleID};`;
         qString = queryString + paramStr + whereString;
-        console.log(qString);
 
         const conn = await getConnection();
         const [rows, fields] = await conn.query(qString);
@@ -147,7 +143,6 @@ Role.prototype.delete = async function(RoleID) {
         const qu = 'DELETE FROM employeeTracker.Roles ';
         const wh = `WHERE RoleID = ${RoleID};`;
         qString = qu + wh;
-        console.log(qString);
 
         const conn = await getConnection();
         const [rows, fields] = await conn.query(qString);

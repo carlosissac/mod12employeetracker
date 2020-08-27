@@ -7,9 +7,9 @@ const EmployeeView = function() {
         'EmployeeFirstName' : '',
         'EmployeeLastName' : '',
         'RoleID' : '',
-        'RoleTitle' : '',
+        'RoleName' : '',
         'DepartmentID' : '',
-        'DepartmentTitle' : '',
+        'DepartmentName' : '',
         'RoleSalary' : '',
         'ManagerID' : '',
         'ManagerFullname' : '' 
@@ -29,9 +29,9 @@ EmployeeView.prototype.getAllSortByDeptID = async function() {
         this.objEmp.EmployeeFirstName = element.first_name;
         this.objEmp.EmployeeLastName = element.last_name;
         this.objEmp.RoleID = element.role_id;
-        this.objEmp.RoleTitle = element.role_title;
+        this.objEmp.RoleName = element.role_title;
         this.objEmp.DepartmentID = element.department_id;
-        this.objEmp.DepartmentTitle = element.department_title;
+        this.objEmp.DepartmentName = element.department_title;
         this.objEmp.RoleSalary = element.role_salary;
         this.objEmp.ManagerID = element.manager_id;
         this.objEmp.ManagerFullname = element.manager_fullname;
@@ -53,9 +53,9 @@ EmployeeView.prototype.getAllSortByEmpID = async function() {
         this.objEmp.EmployeeFirstName = element.first_name;
         this.objEmp.EmployeeLastName = element.last_name;
         this.objEmp.RoleID = element.role_id;
-        this.objEmp.RoleTitle = element.role_title;
+        this.objEmp.RoleName = element.role_title;
         this.objEmp.DepartmentID = element.department_id;
-        this.objEmp.DepartmentTitle = element.department_title;
+        this.objEmp.DepartmentName = element.department_title;
         this.objEmp.RoleSalary = element.role_salary;
         this.objEmp.ManagerID = element.manager_id;
         this.objEmp.ManagerFullname = element.manager_fullname;
@@ -77,9 +77,9 @@ EmployeeView.prototype.getAllSortByManagerID = async function() {
         this.objEmp.EmployeeFirstName = element.first_name;
         this.objEmp.EmployeeLastName = element.last_name;
         this.objEmp.RoleID = element.role_id;
-        this.objEmp.RoleTitle = element.role_title;
+        this.objEmp.RoleName = element.role_title;
         this.objEmp.DepartmentID = element.department_id;
-        this.objEmp.DepartmentTitle = element.department_title;
+        this.objEmp.DepartmentName = element.department_title;
         this.objEmp.RoleSalary = element.role_salary;
         this.objEmp.ManagerID = element.manager_id;
         this.objEmp.ManagerFullname = element.manager_fullname;
@@ -101,9 +101,9 @@ EmployeeView.prototype.getSingleFindByManagerID = async function(mngrID) {
         this.objEmp.EmployeeFirstName = element.first_name;
         this.objEmp.EmployeeLastName = element.last_name;
         this.objEmp.RoleID = element.role_id;
-        this.objEmp.RoleTitle = element.role_title;
+        this.objEmp.RoleName = element.role_title;
         this.objEmp.DepartmentID = element.department_id;
-        this.objEmp.DepartmentTitle = element.department_title;
+        this.objEmp.DepartmentName = element.department_title;
         this.objEmp.RoleSalary = element.role_salary;
         this.objEmp.ManagerID = element.manager_id;
         this.objEmp.ManagerFullname = element.manager_fullname;

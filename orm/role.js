@@ -4,7 +4,7 @@ const Role = function() {
     this.ID = 'Role';
     this.objRole = {
         'RoleID' : '',
-        'RoleTitle' : '',
+        'RoleName' : '',
         'RoleSalary' : '',
         'DepartmentID' : ''
     };
@@ -20,7 +20,7 @@ Role.prototype.getAll = async function() {
     rows.forEach(element => {
         this.objRole = {};
         this.objRole.RoleID = element.RoleID;
-        this.objRole.RoleTitle = element.RoleTitle;
+        this.objRole.RoleName = element.RoleTitle;
         this.objRole.RoleSalary = element.RoleSalary;
         this.objRole.DepartmentID = element.DepartmentID;
         array.push(this.objRole);
@@ -39,7 +39,7 @@ Role.prototype.getSingle = async function(RoleID) {
         rows.forEach(element => {
             this.objRole = {};
             this.objRole.RoleID = element.RoleID;
-            this.objRole.RoleTitle = element.RoleTitle;
+            this.objRole.RoleName = element.RoleTitle;
             this.objRole.RoleSalary = element.RoleSalary;
             this.objRole.DepartmentID = element.DepartmentID;
             array.push(this.objRole);
@@ -50,13 +50,13 @@ Role.prototype.getSingle = async function(RoleID) {
     }
 };
 
-Role.prototype.post = async function(RoleTitle, RoleSalary, DepartmentID) {
-    if(RoleTitle !== '') {
+Role.prototype.post = async function(RoleName, RoleSalary, DepartmentID) {
+    if(RoleName !== '') {
         if(RoleSalary !== '') {
             if(DepartmentID !== '') { 
                 const query = 'INSERT INTO employeeTracker.Roles (RoleTitle, RoleSalary, DepartmentID) ';
                 const d1 = 'VALUES (';
-                const dinsert = `'${RoleTitle}', '${RoleSalary}', '${DepartmentID}'`;
+                const dinsert = `'${RoleName}', '${RoleSalary}', '${DepartmentID}'`;
                 const d2 = ');';
                 const qString = query + d1 + dinsert + d2;
 
@@ -82,9 +82,9 @@ Role.prototype.genParamStr = function(obj) {
     let rs = false;
     let di = false;
 
-    if(obj.RoleTitle !== '') {
+    if(obj.RoleName !== '') {
         rt = true;
-        obj.RoleTitle = `'${obj.RoleTitle}'`;
+        obj.RoleName = `'${obj.RoleName}'`;
     }
     if(obj.RoleSalary !== '') {
         rs = true;
@@ -96,7 +96,7 @@ Role.prototype.genParamStr = function(obj) {
     } 
 
     if(rt) {
-        str += `RoleTitle = ${obj.RoleTitle}`;
+        str += `RoleTitle = ${obj.RoleName}`;
         if(rs || di) {
             str += `, `;
         }
@@ -116,11 +116,11 @@ Role.prototype.genParamStr = function(obj) {
     return str;
 }
 
-Role.prototype.put = async function(RoleID, RoleTitle, RoleSalary, DepartmentID) {
+Role.prototype.put = async function(RoleID, RoleName, RoleSalary, DepartmentID) {
     if(RoleID !== '') {
         this.objRole = {};
         this.objRole.RoleID = RoleID;
-        this.objRole.RoleTitle = RoleTitle;
+        this.objRole.RoleName = RoleName;
         this.objRole.RoleSalary = RoleSalary;
         this.objRole.DepartmentID = DepartmentID;
 

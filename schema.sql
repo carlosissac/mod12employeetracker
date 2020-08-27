@@ -13,7 +13,7 @@ CREATE TABLE employeeTracker.Roles (
     RoleTitle VARCHAR(30) NOT NULL,
     RoleSalary DECIMAL(19,2) NOT NULL,
     RoleCreated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	DepartmentID INTEGER NOT NULL,
+	DepartmentID INTEGER NULL,
     PRIMARY KEY (RoleID),
     KEY DepartmentID (DepartmentID),
     CONSTRAINT Roles_ibfk_1 FOREIGN KEY (DepartmentID) REFERENCES employeeTracker.Departments (DepartmentID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -24,7 +24,7 @@ CREATE TABLE employeeTracker.Employees (
     EmployeeFirstName VARCHAR(30) NOT NULL,
     EmployeeLastName VARCHAR(30) NOT NULL,
 	ManagerID INTEGER NULL,
-    RoleID INTEGER NOT NULL,
+    RoleID INTEGER NULL,
     PRIMARY KEY (EmployeeID),
     KEY RoleID (RoleID),
     CONSTRAINT Employees_ibfk_1 FOREIGN KEY (RoleID) REFERENCES employeeTracker.Roles (RoleID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -124,3 +124,15 @@ FROM employeeTracker.Employees emp
 		ON emp2.EmployeeID =  emp.ManagerID
 	ORDER BY
 		emp.ManagerID;
+
+CREATE VIEW employeeTracker.departmetViewSortByDepartmentID
+AS
+SELECT  dept.DepartmentID department_id,
+        dept.DepartmentName department_title,
+		rol.RoleID role_id,
+        rol.RoleTitle role_title,
+        rol.RoleSalary role_salary
+FROM employeeTracker.Roles rol
+	INNER JOIN employeeTracker.Departments dept
+		ON rol.DepartmentID = dept.DepartmentID
+    ORDER BY dept.DepartmentID;

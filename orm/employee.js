@@ -13,7 +13,6 @@ const Employee = function() {
 
 Employee.prototype.getAll = async function() {
     const qString = 'SELECT * FROM employeeTracker.Employees;';
-    console.log(qString);
     const conn = await getConnection();
     const [rows, fields] = await conn.query(qString);
     conn.destroy();
@@ -33,7 +32,6 @@ Employee.prototype.getAll = async function() {
 
 Employee.prototype.getAll = async function() {
     const qString = 'SELECT * FROM employeeTracker.Employees;';
-    console.log(qString);
     const conn = await getConnection();
     const [rows, fields] = await conn.query(qString);
     conn.destroy();
@@ -54,7 +52,6 @@ Employee.prototype.getAll = async function() {
 Employee.prototype.getSingle = async function(EmployeeID) {
     if(EmployeeID !== '') {
         const qString = `SELECT * FROM employeeTracker.Employees WHERE EmployeeID = ${EmployeeID};`;
-        console.log(qString);
         const conn = await getConnection();
         const [rows, fields] = await conn.query(qString);
         conn.destroy();
@@ -87,7 +84,6 @@ Employee.prototype.post = async function(EmployeeFirstName, EmployeeLastName, Ma
                 const dinsert = `'${EmployeeFirstName}', '${EmployeeLastName}', ${ManagerID}, ${RoleID}`;
                 const d2 = ');';
                 const qString = query + d1 + dinsert + d2;
-                console.log(qString);
 
                 const conn = await getConnection();
                 const [rows, fields] = await conn.query(qString);
@@ -170,7 +166,6 @@ Employee.prototype.put = async function(EmployeeID, EmployeeFirstName, EmployeeL
         const paramStr = this.genParamStr(this.objEmp);
         const whereString = `WHERE EmployeeID = ${this.objEmp.EmployeeID};`;
         qString = queryString + paramStr + whereString;
-        console.log(qString);
 
         const conn = await getConnection();
         const [rows, fields] = await conn.query(qString);
@@ -186,12 +181,11 @@ Employee.prototype.delete = async function(EmployeeID) {
         const qu = 'DELETE FROM employeeTracker.Employees ';
         const wh = `WHERE EmployeeID = ${EmployeeID};`;
         qString = qu + wh;
-        console.log(qString);
 
         const conn = await getConnection();
         const [rows, fields] = await conn.query(qString);
         conn.destroy();
-        return `Employee Deleted: ${rows.affectedRows}`;
+        return `Employees Deleted: ${rows.affectedRows}`;
     } else {
         return 'Employee Put NA';
     }

@@ -6,6 +6,7 @@ const { EmployeeView } = require('./orm/employeeview');
 const { ManagerView } = require('./orm/managerview');
 const { BudgetView } = require('./orm/budgetview');
 const { DepartmentView } = require('./orm/departmentview');
+const { Seed } = require('./mysql/seed');
 
 const dept = new Department();
 const emp = new Employee();
@@ -14,6 +15,7 @@ const empvw = new EmployeeView();
 const mgrvw = new ManagerView();
 const bdgtvw = new BudgetView();
 const dptvw = new DepartmentView();
+const seed = new Seed();
 
 const EmployeeTracker = function() {
     this.ID = 'EmployeeTracker';
@@ -23,8 +25,10 @@ const EmployeeTracker = function() {
     this.empmgr_lock = 0;
     this.dptcrt_lock = 0;
     this.dptudt_lock = 0;
+    this.dptdel_lock = 0;
     this.rolcrt_lock = 0;
     this.rolupt_lock = 0;
+    this.roldel_lock = 0;
     this.emp_id = 0;
     this.mgr_id = 0;
     this.rol_id = 0;
@@ -32,6 +36,7 @@ const EmployeeTracker = function() {
     this.rol_salary = '';
     this.dept_id = '';
     this.dept_name = '';
+    this.si_lock = 0;
     this.inquierElements();
     this.mainOptions();
 };
@@ -83,6 +88,14 @@ EmployeeTracker.prototype.inquierElements = function() {
     this.disp6 = {
         'RoleID' : '',
         'RoleName' : '',
+        'DepartmentName' : '',
+        'RoleSalary' : ''
+    };
+
+    this.disp7 = {
+        'RoleID' : '',
+        'RoleName' : '',
+        'DepartmentID' : '',
         'DepartmentName' : '',
         'RoleSalary' : ''
     };
@@ -186,7 +199,8 @@ EmployeeTracker.prototype.inquierElements = function() {
         message: 'EMPLOYEE TRACKER - MAIN MENU',
         choices: ['1.View Reports',
                 '2.Admin Tasks',
-                '3.Exit App']
+                '3.Seed Data',
+                '4.Exit App']
     };
 
     this.viewreportsmenu = {
@@ -216,8 +230,7 @@ EmployeeTracker.prototype.inquierElements = function() {
             '7.Delete Department',
             '8.Create New Role',
             '9.Update Role',
-            'A.Delete Role',
-            'B.Load Schema & Seed Data']
+            '0.Delete Role']
     };
 };
 
@@ -276,12 +289,13 @@ EmployeeTracker.prototype.departmentArrayHandler_C = function(array) {
 EmployeeTracker.prototype.departmentArrayHandler_B = function(array) {
     let disp_array = [];
     array.forEach(element => {
-        this.disp6 = {};
-        this.disp6.RoleID = element.RoleID;
-        this.disp6.RoleName = element.RoleName;
-        this.disp6.DepartmentName = element.DepartmentName;
-        this.disp6.RoleSalary = element.RoleSalary;
-        disp_array.push(this.disp6);
+        this.disp7 = {};
+        this.disp7.RoleID = element.RoleID;
+        this.disp7.RoleName = element.RoleName;
+        this.disp7.DepartmentID = element.DepartmentID;
+        this.disp7.DepartmentName = element.DepartmentName;
+        this.disp7.RoleSalary = element.RoleSalary;
+        disp_array.push(this.disp7);
     });               
     if(!disp_array.length) {
         return 'departmentArrayHandler_6 - No Records Were Found By Search';
@@ -393,6 +407,36 @@ EmployeeTracker.prototype.captureDepartmentID_A = async function(array) {
     }
 };
 
+EmployeeTracker.prototype.captureDepartmentID_B = async function(array) {
+    this.dept_id = '';
+    this.dept_id = await inquirer.prompt(this.departmentid);
+    let lock1 = true;
+    let lock2 = true;
+    let i = 0;
+    let j = 0;
+
+    array.forEach(element => {
+        if((String(this.rol_name.attribute) === String(element.RoleName))) {
+            lock1 = false;
+        }
+        i++;
+    });
+
+    array.forEach(element => {
+        if((Number(this.dept_id.attribute) === Number(element.DepartmentID))) {
+            lock2 = false;
+        }
+        j++;
+    });
+
+    if(!lock1 && !lock2) {
+        console.log('captureDepartmentName - New RoleName-DepartmentName Already Exists - Try a Different Deparment Again');
+        await this.captureDepartmentID_B(array);
+    } else {
+        return;
+    }
+};
+
 EmployeeTracker.prototype.captureDepartmentName = async function(array) {
     this.dept_name = '';
     this.dept_name = await inquirer.prompt(this.departmentname);
@@ -447,10 +491,9 @@ EmployeeTracker.prototype.captureDepartmentName_B = async function(array) {
         return;
     } else {
         console.log('captureDepartmentName - New Department Already Exists - Try Again');
-        await this.captureDepartmentName(array);
+        await this.captureDepartmentName_B(array);
     }
 };
-
 
 EmployeeTracker.prototype.captureEmployeeID = async function(array) {
     this.emp_id = 0;
@@ -546,14 +589,60 @@ EmployeeTracker.prototype.captureRoleID = async function(array) {
     }
 };
 
+EmployeeTracker.prototype.captureRoleName = async function(array) {
+    this.rol_name = '';
+    this.rol_name = await inquirer.prompt(this.rolename);
+    let lock = true;
+    let i = 0;
+    array.forEach(element => {
+        if(String(this.rol_name.attribute) === String(element.RoleName)) {
+            lock = false;
+        }
+        i++;
+    });
+    if(lock) {
+        return;
+    } else {
+        console.log('captureRoleName - New Role Name Already Exists - Try Again');
+        await this.captureRoleName(array);
+    }
+};
+
+EmployeeTracker.prototype.roleDelete = async function() {
+    this.roldel_lock = 0;
+    while(this.roldel_lock<2) {
+        switch(this.roldel_lock) {
+            case 0:
+                //Role list
+                let disp_array0 = [];
+                const array0 = await dptvw.getAllSortByRoleID();
+                disp_array0 = this.departmentArrayHandler_C(array0);
+                console.table(disp_array0);
+
+                await this.captureRoleID(disp_array0);
+                this.roldel_lock++;
+            break;
+            case 1:
+                let ret = await rol.delete(this.rol_id.attribute);
+                console.log(ret);
+                this.roldel_lock++;
+            break;
+            default:
+                console.log('roleDelete NA');
+                this.roldel_lock = 2;
+            break;
+        }
+    }
+};
+
 EmployeeTracker.prototype.roleUpdate = async function() {
+    let disp_array0 = [];
     this.rolupt_lock = 0;
     while(this.rolupt_lock<5) {
         switch(this.rolupt_lock) {
             case 0:
-                //Role Name
-                let disp_array0 = [];
-                const array0 = await dptvw.getAllSortByDepartmentID();
+                //Role ID
+                const array0 = await dptvw.getAllSortByRoleID();
                 disp_array0 = this.departmentArrayHandler_C(array0);
                 console.table(disp_array0);
 
@@ -579,7 +668,7 @@ EmployeeTracker.prototype.roleUpdate = async function() {
                 disp_array2 = this.departmentArrayHandler_A(array2);
                 console.table(disp_array2);
 
-                await this.captureDepartmentID_A(disp_array2);
+                await this.captureDepartmentID_B(disp_array0);
                 this.rolupt_lock++;
             break;
             case 4:
@@ -598,23 +687,23 @@ EmployeeTracker.prototype.roleUpdate = async function() {
 
 EmployeeTracker.prototype.roleCreate = async function() {
     let disp_array0 = [];
-    this.rolupt_lock = 0;
-    while(this.rolupt_lock<4) {
-        switch(this.rolupt_lock) {
+    this.rolcrt_lock = 0;
+    while(this.rolcrt_lock<4) {
+        switch(this.rolcrt_lock) {
             case 0:
                 //Role Name
-                const array0 = await dptvw.getAllSortByDepartmentID();
+                const array0 = await dptvw.getAllSortByRoleID();
                 disp_array0 = this.departmentArrayHandler_B(array0);   
                 console.table(disp_array0);
 
-                this.captureRoleID(disp_array0);          
-                this.rolupt_lock++;
+                this.rol_name = await inquirer.prompt(this.rolename);      
+                this.rolcrt_lock++;
             break;
             case 1:
                 //Role Salary
                 this.rol_salary = '';
                 this.rol_salary = await inquirer.prompt(this.rolesalary);
-                this.rolupt_lock++;
+                this.rolcrt_lock++;
             break;
             case 2:
                 //Select Department ID
@@ -623,18 +712,18 @@ EmployeeTracker.prototype.roleCreate = async function() {
                 disp_array2 = this.departmentArrayHandler_A(array2);
                 console.table(disp_array2);
 
-                await this.captureDepartmentID(disp_array2);
-                this.rolupt_lock++;
+                await this.captureDepartmentID_B(disp_array0);
+                this.rolcrt_lock++;
             break;
             case 3:
                 //Query
                 const ret = await rol.post(String(this.rol_name.attribute),String(this.rol_salary.attribute),String(this.dept_id.attribute));
                 console.log(`New Department ID : ${ret}`);
-                this.rolupt_lock++;
+                this.rolcrt_lock++;
             break;
             default:
                 console.log('roleCreate NA');
-                this.rolupt_lock = 4;
+                this.rolcrt_lock = 4;
             break;
         }
     }
@@ -656,12 +745,12 @@ EmployeeTracker.prototype.departmentCreate = async function() {
             break;
             case 1:
                 //Query
-                const ret = await dept.post(String(this.dept_id.attribute));
+                const ret = await dept.post(String(this.dept_name.attribute));
                 console.log(`New Department ID : ${ret}`);
                 this.dptcrt_lock++;
             break;
             default:
-                console.log('employeeCreate NA');
+                console.log('departmentCreate NA');
                 this.dptcrt_lock = 2;
             break;
         }
@@ -688,7 +777,7 @@ EmployeeTracker.prototype.departmentDelete = async function() {
                 this.dptdel_lock++;
             break;
             default:
-                console.log('employeeDelete NA');
+                console.log('departmentDelete NA');
                 this.dptdel_lock = 2;
             break;
         }
@@ -857,8 +946,8 @@ EmployeeTracker.prototype.employeeCreate = async function() {
             case 3:
                 //RoleID
                 let disp_array3 = [];
-                const array3 = await rol.getAll();
-                disp_array3 = this.roleArrayHandler(array3);   
+                const array3 = await dptvw.getAllSortByDepartmentID();
+                disp_array3 = this.departmentArrayHandler_B(array3);
                 console.table(disp_array3);
 
                 await this.captureRoleID(disp_array3);
@@ -880,7 +969,7 @@ EmployeeTracker.prototype.employeeCreate = async function() {
 
 EmployeeTracker.prototype.adminTasks = async function(option) {
     let i = option;
-    while(i<13) {
+    while(i<11) {
         switch(i) {
             case 1:
                 //1.Create New Employee
@@ -918,17 +1007,15 @@ EmployeeTracker.prototype.adminTasks = async function(option) {
                 //9.Update Role
                 await this.roleUpdate();
             break;
-            case 'A':
+            case 0:
                 //A.Delete Role
-            break;
-            case 'B':
-                //B.Renew Schema & Seed Data
+                await this.roleDelete();
             break;
             default:
                 console.log('viewReports Invalid');
             break;
         }
-        i = 13;
+        i = 11;
     }
 };
 
@@ -967,7 +1054,7 @@ EmployeeTracker.prototype.viewReports = async function(option) {
             case 5:
                 //5.View All Available Roles
                 let disp_array5 = [];
-                const array5 = await dptvw.getAllSortByDepartmentID();
+                const array5 = await dptvw.getAllSortByRoleID();
                 disp_array5 = this.departmentArrayHandler_B(array5);      
                 console.table(disp_array5);
             break;
@@ -1016,7 +1103,7 @@ EmployeeTracker.prototype.mainOptions = async function() {
     let i = 0;
     let j = 0;
     let k = 0;
-    while(i<4) {
+    while(i<5) {
         const opt = await inquirer.prompt(this.mainmenu);
         i = Number(opt.mainmenu[0]);
         switch(i) {
@@ -1031,8 +1118,11 @@ EmployeeTracker.prototype.mainOptions = async function() {
                 await this.adminTasks(k);
             break;
             case 3:
+                await seed.initial();
+            break;
+            case 4:
                 console.log('Exit Employee Tracker');
-                i = 4;
+                i = 5;
             break;
             default:
                 console.log('mainOptions Invalid');

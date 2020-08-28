@@ -136,3 +136,15 @@ FROM employeeTracker.Roles rol
 	INNER JOIN employeeTracker.Departments dept
 		ON rol.DepartmentID = dept.DepartmentID
     ORDER BY dept.DepartmentID;
+
+CREATE VIEW employeeTracker.departmetViewSortByRoleID
+AS
+SELECT  dept.DepartmentID department_id,
+        dept.DepartmentName department_title,
+		rol.RoleID role_id,
+        rol.RoleTitle role_title,
+        rol.RoleSalary role_salary
+FROM employeeTracker.Roles rol
+	INNER JOIN employeeTracker.Departments dept
+		ON rol.DepartmentID = dept.DepartmentID
+    ORDER BY rol.RoleID;

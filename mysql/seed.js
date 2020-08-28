@@ -35,5 +35,4 @@ Seed.prototype.initial = async function() {
     await this.initialEmployees('Brian', 'Soldani', '5', '3');
 };
 
-const s = new Seed();
-s.initial();
+module.exports = { Seed };

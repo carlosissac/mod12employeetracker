@@ -1,10 +1,10 @@
 # 12 MySQL: Employee Tracker
 
-![GitHub last commit](https://img.shields.io/github/last-commit/carlosissac/mod12employeetracker) ![Twitter Follow](https://img.shields.io/twitter/follow/zzzakk_cccrlss?style=social) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/carlosissac/mod12employeetracker) ![GitHub followers](https://img.shields.io/github/followers/carlosissac?style=social) 
+![GitHub last commit](https://img.shields.io/github/last-commit/carlosissac/mod12employeetracker) ![Twitter Follow](https://img.shields.io/twitter/follow/zzzakk_cccrlss?style=social) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/carlosissac/mod12employeetracker) ![GitHub followers](https://img.shields.io/github/followers/carlosissac?style=social)
 
 ## Description
 
-Node CLI application that interfaces with a MySQL DB in order to facilitate managment employees of an organization.
+Node CLI application that interfaces with a MySQL DB in order to facilitate management employees of an organization.
 
 ## Snapshot
 
@@ -17,15 +17,15 @@ Node CLI application that interfaces with a MySQL DB in order to facilitate mana
 * [TableOfContents](#TableOfContents)
 * [UserStory](#UserStory)
 * [AcceptanceChecklist](#AcceptanceChecklist)
-    * [InitialRequirements](#InitialRequirements)
-    * [ApplicationRequirements](#ApplicationRequirements)
-    * [BonusRequirements](#BonusRequirements)
-    * [SubmissionRequirements](#SubmissionRequirements)
+   * [InitialRequirements](#InitialRequirements)
+   * [ApplicationRequirements](#ApplicationRequirements)
+   * [BonusRequirements](#BonusRequirements)
+   * [SubmissionRequirements](#SubmissionRequirements)
 * [AppUsage](#AppUsage)
-    * [Installation](#Installation)
-    * [Configuration](#Configuration)
-    * [Operation](#Operation)
-    * [Output](#Output)
+   * [Installation](#Installation)
+   * [Configuration](#Configuration)
+   * [Operation](#Operation)
+   * [Output](#Output)
 * [Features](#Features)
 
 ## UserStory
@@ -44,26 +44,26 @@ Design the following database schema containing three tables:
 
 * **department**:
 
-  * **id** - INT PRIMARY KEY
-  * **name** - VARCHAR(30) to hold department name
-  * **department_created** - was added in order to keep track of creation - Issac.
+ * **id** - INT PRIMARY KEY
+ * **name** - VARCHAR(30) to hold department name
+ * **department_created** - was added in order to keep track of creation - Issac.
 
 * **role**:
 
-  * **id** - INT PRIMARY KEY.
-  * **title** -  VARCHAR(30) to hold role title.
-  * **salary** -  DECIMAL to hold role salary.
-  * **department_id** -  INT to hold reference to department role belongs to
-  * **role_created** - was added in order to keep track of creation - Issac.
+ * **id** - INT PRIMARY KEY.
+ * **title** -  VARCHAR(30) to hold role title.
+ * **salary** -  DECIMAL to hold role salary.
+ * **department_id** -  INT to hold reference to department role belongs to
+ * **role_created** - was added in order to keep track of creation - Issac.
 
 * **employee**:
 
-  * **id** - INT PRIMARY KEY.
-  * **first_name** - VARCHAR(30) to hold employee first name.
-  * **last_name** - VARCHAR(30) to hold employee last name.
-  * **role_id** - INT to hold reference to role employee has.
-  * **manager_id** - INT to hold reference to another employee that manager of the current employee. This field may be null if the employee has no manager.
-  * **employee_created** - was added in order to keep track of creation - Issac.
+ * **id** - INT PRIMARY KEY.
+ * **first_name** - VARCHAR(30) to hold employee first name.
+ * **last_name** - VARCHAR(30) to hold employee last name.
+ * **role_id** - INT to hold reference to role employee has.
+ * **manager_id** - INT to hold reference to another employee that manager of the current employee. This field may be null if the employee has no manager.
+ * **employee_created** - was added in order to keep track of creation - Issac.
 
 Implement table relationships like specified in the diagram below:
 
@@ -73,80 +73,76 @@ Implement table relationships like specified in the diagram below:
 
 ### ApplicationRequirements
 
-  * Add departments, roles, employees.
-  
+ * Add departments, roles, employees.
     - Done. Issac.
 
-  * View departments, roles, employees.
+ * View departments, roles, employees.
 
-    - Done. Issac.
+   - Done. Issac.
 
-  * Update employee roles.
+ * Update employee roles.
 
-    - Done. Issac.
+   - Done. Issac.
 
 ### BonusRequirements
 
-  * Update employee managers
+ * Update employee managers
 
-    - Done. Issac.
+   - Done. Issac.
 
-  * View employees by manager
+ * View employees by manager
 
-    - Done. Issac. 
+   - Done. Issac.
 
-  * Delete departments, roles, and employees
+ * Delete departments, roles, and employees
 
-    - Done. Issac. 
-  
+   - Done. Issac.
   * View the total utilized budget of a department -- ie the combined salaries of all employees in that department
 
-    - Done. Issac.
+   - Done. Issac.
 
 ### SubmissionRequirements
 
 * Use the [MySQL](https://www.npmjs.com/package/mysql) NPM package to connect to your MySQL database and perform queries.
 
-- [MySQL2](https://www.npmjs.com/package/mysql2) NPM package was used instead, since original packege mentioned doesn't support `async/await` notation.
- 
+- [MySQL2](https://www.npmjs.com/package/mysql2) NPM package was used instead, since the original package mentioned doesn't support `async/await` notation.
 * Use [InquirerJs](https://www.npmjs.com/package/inquirer/v/0.2.3) NPM package to interact with the user via the command-line.
 
-  - Done. Issac.
+ - Done. Issac.
 
 * Use [console.table](https://www.npmjs.com/package/console.table) to print MySQL rows to the console. There is a built-in version of `console.table`, but the NPM package formats the data a little better for our purposes.
 
-  - Done. Issac.
+ - Done. Issac.
 
 * You will need to perform a variety of SQL JOINS to complete this assignment.
 
-  - Done. Details are provided in `scheema.sql` file. Issac
+ - Done. Details are provided in the `scheema.sql` file. Issac
 
 * You may wish to include a `seed.sql` file to pre-populate your database. This will make development of individual features much easier.
 
-  - Done. Details are provided in `seed.sql` file. After building the schema in Workbench, option #3 in main menu was provided in order to run seed file. Issac
+ - Done. Details are provided in `seed.sql` file. After building the schema in Workbench, option #3 in the main menu was provided in order to run the seed file. Issac
 
 * Separate file containing functions for performing specific SQL queries you'll need to use.
 
-  - Directory structure used was the following:
+ - Directory structure used was the following:
 
 ```
 assets/ .................... README Images.
-    scheema.jpg
-    snapshot.jpg
- 
+   scheema.jpg
+   snapshot.jpg
 mysql/ ..................... MySQL Details.
-    connection.js .......... connection pool creation in order to interface with DB.
-    initial.js ............. Insert methods for intial seed data load.
-    seed.js ................ Data to be inserted during intial seeding load.
+   connection.js .......... connection pool creation in order to interface with DB.
+   initial.js ............. Insert methods for initial seed data load.
+   seed.js ................ Data to be inserted during initial seeding load.
 
 orm/ ....................... CRUD operations for Tables and views in DB.
-    budgetview.js .......... View implemented in order to display budget summaries.
-    department.js .......... CRUD operations for Department table.
-    departmentview.js ...... View designed to display Role-Department relationships.
-    employee.js ............ CRUD operations for Employee table.
-    employeeview.js ........ Employee view to display all data linked.
-    managerview.js ......... Displays employees listed as managers.
-    role.js ................ CRUD operations for Role table.
+   budgetview.js .......... View implemented in order to display budget summaries.
+   department.js .......... CRUD operations for the Department table.
+   departmentview.js ...... View designed to display Role-Department relationships.
+   employee.js ............ CRUD operations for Employee table.
+   employeeview.js ........ Employee view to display all data linked.
+   managerview.js ......... Displays employees listed as managers.
+   role.js ................ CRUD operations for Role table.
 
 app.js ..................... Runs the application and captures input using inquirer.
 scheema.sql ................ Runs the application and captures input using inquirer.
@@ -155,13 +151,13 @@ seed.sql ................... Lists seeds data.
 ```
 ## AppUsage
 
-### Installation 
+### Installation
 
 *Step 1.* Clone repo into your localhost.
 
 *Step 2.* Open Terminal and run "npm i" in order to install dependencies.
 
-### Configuration 
+### Configuration
 
 *Step 1.* Go to [connection.js]('./mysql/connection.js') and update with your DB password.
 
@@ -169,9 +165,9 @@ seed.sql ................... Lists seeds data.
 
 *Step 3.* type `node index.js` in your terminal.
 
-*Step 4.* Select option `3.Seed Data` in your terminal in order to laod seed data.
+*Step 4.* Select option `3.Seed Data` in your terminal in order to load seed data.
 
-### Operation 
+### Operation
 
 *Step 1.* Go to Terminal and type `node index.js`, the following menu will appear.
 
@@ -181,15 +177,15 @@ seed.sql ................... Lists seeds data.
 
 ![image](./assets/reports.jpg)
 
-*Step 3.* Select `2.Admin Tasks` in order to create, update or delete employees, managers and departments. 
+*Step 3.* Select `2.Admin Tasks` in order to create, update or delete employees, managers and departments.
 
 ![image](./assets/admin.jpg)
 
-*Step 4.* Choose `3.Seed Data` in order to load initial data (scheema has to be preloaded beforehand).  
+*Step 4.* Choose `3.Seed Data` in order to load initial data (schema has to be preloaded beforehand). 
 
 *Step 5.* Select `4.Exit App` if you want to quit.
 
-### Output 
+### Output
 
 * All output is provided in terminal console.
 
@@ -197,7 +193,7 @@ seed.sql ................... Lists seeds data.
 
 ## Features
 
-* In order to be able to use async/await MySQL2 library was required and connection pool logic was needed to be implemented.
+* In order to be able to use async notation, MySQL2 library was required and connection pool logic was needed to be implemented.
 
 * All database interface methods are invoqued using async/await notation.
 
@@ -207,4 +203,4 @@ seed.sql ................... Lists seeds data.
 
 ## PendingItems
 
-* `index.js` should be broken into 3 or 4 files. Due to time constraints a lot of functionality wounded up being imeplemented in that single location.
+* `index.js` should be broken into 3 or 4 files. Due to time constraints a lot of functionality wounded up being implemented in that single location.

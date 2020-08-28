@@ -75,33 +75,33 @@ Implement table relationships like specified in the diagram below:
 
   * Add departments, roles, employees.
   
-  - Done. Issac 
+    - Done. Issac.
 
   * View departments, roles, employees.
 
-  - Done. Issac 
+    - Done. Issac.
 
   * Update employee roles.
 
-  - Done. Issac 
+    - Done. Issac.
 
 ### BonusRequirements
 
   * Update employee managers
 
-  - Done. Issac 
+    - Done. Issac.
 
   * View employees by manager
 
-  - Done. Issac 
+    - Done. Issac. 
 
   * Delete departments, roles, and employees
 
-  - Done. Issac 
+    - Done. Issac. 
   
   * View the total utilized budget of a department -- ie the combined salaries of all employees in that department
 
-  - Done. Issac 
+    - Done. Issac.
 
 ### SubmissionRequirements
 
@@ -111,23 +111,23 @@ Implement table relationships like specified in the diagram below:
  
 * Use [InquirerJs](https://www.npmjs.com/package/inquirer/v/0.2.3) NPM package to interact with the user via the command-line.
 
-- Done. Issac.
+  - Done. Issac.
 
 * Use [console.table](https://www.npmjs.com/package/console.table) to print MySQL rows to the console. There is a built-in version of `console.table`, but the NPM package formats the data a little better for our purposes.
 
-- Done. Issac.
+  - Done. Issac.
 
 * You will need to perform a variety of SQL JOINS to complete this assignment.
 
-- Done. Details are provided in `scheema.sql` file. Issac
+  - Done. Details are provided in `scheema.sql` file. Issac
 
 * You may wish to include a `seed.sql` file to pre-populate your database. This will make development of individual features much easier.
 
-- Done. Details are provided in `seed.sql` file. After building the schema in Workbench, option #3 in main menu was provided in order to run seed file. Issac
+  - Done. Details are provided in `seed.sql` file. After building the schema in Workbench, option #3 in main menu was provided in order to run seed file. Issac
 
 * Separate file containing functions for performing specific SQL queries you'll need to use.
 
-- Directory structure used was the following:
+  - Directory structure used was the following:
 
 ```
 assets/ .................... README Images.

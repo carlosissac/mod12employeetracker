@@ -674,7 +674,7 @@ EmployeeTracker.prototype.roleUpdate = async function() {
             case 4:
                 //Query Update
                 const ret = await rol.put(String(this.rol_id.attribute),String(this.rol_name.attribute),String(this.rol_salary.attribute),String(this.dept_id.attribute));
-                console.log(`New Department ID : ${ret}`);
+                console.log(`Role ID : ${ret}`);
                 this.rolupt_lock++;
             break;
             default:

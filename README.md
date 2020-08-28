@@ -27,6 +27,7 @@ Node CLI application that interfaces with a MySQL DB in order to facilitate mana
    * [Operation](#Operation)
    * [Output](#Output)
 * [Features](#Features)
+* [VideoWalkthrough](#VideoWalkthrough)
 
 ## UserStory
 
@@ -204,3 +205,9 @@ seed.sql ................... Lists seeds data.
 ## PendingItems
 
 * `index.js` should be broken into 3 or 4 files. Due to time constraints a lot of functionality wounded up being implemented in that single location.
+
+## VideoWalkthrough
+
+The following links provide video walkthroughs explaining the development decisions made for this project and a walkthrough of the usage of the app. 
+
+* [Video Demo](https://youtu.be/7Xet7EA5HDY)

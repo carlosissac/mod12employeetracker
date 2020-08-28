@@ -7,7 +7,7 @@ var mysql = require('mysql2/promise');
             port: 3306,
             namedPlaceholders: true,
             user: 'root',
-            password: null,
+            password: 'Htconem8',
             database: 'employeeTracker'
         });
         return c.getConnection();

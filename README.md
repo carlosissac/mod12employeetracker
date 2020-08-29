@@ -74,31 +74,32 @@ Implement table relationships like specified in the diagram below:
 
 ### ApplicationRequirements
 
- * Add departments, roles, employees.
+* Add departments, roles, employees.
     - Done. Issac.
 
- * View departments, roles, employees.
+* View departments, roles, employees.
 
    - Done. Issac.
 
- * Update employee roles.
+* Update employee roles.
 
    - Done. Issac.
 
 ### BonusRequirements
 
- * Update employee managers
+* Update employee managers
 
    - Done. Issac.
 
- * View employees by manager
+* View employees by manager
 
    - Done. Issac.
 
- * Delete departments, roles, and employees
+* Delete departments, roles, and employees
 
    - Done. Issac.
-  * View the total utilized budget of a department -- ie the combined salaries of all employees in that department
+
+* View the total utilized budget of a department -- ie the combined salaries of all employees in that department
 
    - Done. Issac.
 
@@ -107,25 +108,26 @@ Implement table relationships like specified in the diagram below:
 * Use the [MySQL](https://www.npmjs.com/package/mysql) NPM package to connect to your MySQL database and perform queries.
 
 - [MySQL2](https://www.npmjs.com/package/mysql2) NPM package was used instead, since the original package mentioned doesn't support `async/await` notation.
+
 * Use [InquirerJs](https://www.npmjs.com/package/inquirer/v/0.2.3) NPM package to interact with the user via the command-line.
 
- - Done. Issac.
+   - Done. Issac.
 
 * Use [console.table](https://www.npmjs.com/package/console.table) to print MySQL rows to the console. There is a built-in version of `console.table`, but the NPM package formats the data a little better for our purposes.
 
- - Done. Issac.
+   - Done. Issac.
 
 * You will need to perform a variety of SQL JOINS to complete this assignment.
 
- - Done. Details are provided in the `scheema.sql` file. Issac
+   - Done. Details are provided in the `scheema.sql` file. Issac
 
 * You may wish to include a `seed.sql` file to pre-populate your database. This will make development of individual features much easier.
 
- - Done. Details are provided in `seed.sql` file. After building the schema in Workbench, option #3 in the main menu was provided in order to run the seed file. Issac
+   - Done. Details are provided in `seed.sql` file. After building the schema in Workbench, option #3 in the main menu was provided in order to run the seed file. Issac
 
 * Separate file containing functions for performing specific SQL queries you'll need to use.
 
- - Directory structure used was the following:
+   - Directory structure used was the following:
 
 ```
 assets/ .................... README Images.

@@ -27,6 +27,7 @@ Node CLI application that interfaces with a MySQL DB in order to facilitate mana
    * [Operation](#Operation)
    * [Output](#Output)
 * [Features](#Features)
+* [PendingItems](#PendingItems)
 * [VideoWalkthrough](#VideoWalkthrough)
 
 ## UserStory
@@ -45,26 +46,26 @@ Design the following database schema containing three tables:
 
 * **department**:
 
- * **id** - INT PRIMARY KEY
- * **name** - VARCHAR(30) to hold department name
- * **department_created** - was added in order to keep track of creation - Issac.
+* **id** - INT PRIMARY KEY
+* **name** - VARCHAR(30) to hold department name
+* **department_created** - was added in order to keep track of creation - Issac.
 
 * **role**:
 
- * **id** - INT PRIMARY KEY.
- * **title** -  VARCHAR(30) to hold role title.
- * **salary** -  DECIMAL to hold role salary.
- * **department_id** -  INT to hold reference to department role belongs to
- * **role_created** - was added in order to keep track of creation - Issac.
+* **id** - INT PRIMARY KEY.
+* **title** -  VARCHAR(30) to hold role title.
+* **salary** -  DECIMAL to hold role salary.
+* **department_id** -  INT to hold reference to department role belongs to
+* **role_created** - was added in order to keep track of creation - Issac.
 
 * **employee**:
 
- * **id** - INT PRIMARY KEY.
- * **first_name** - VARCHAR(30) to hold employee first name.
- * **last_name** - VARCHAR(30) to hold employee last name.
- * **role_id** - INT to hold reference to role employee has.
- * **manager_id** - INT to hold reference to another employee that manager of the current employee. This field may be null if the employee has no manager.
- * **employee_created** - was added in order to keep track of creation - Issac.
+* **id** - INT PRIMARY KEY.
+* **first_name** - VARCHAR(30) to hold employee first name.
+* **last_name** - VARCHAR(30) to hold employee last name.
+* **role_id** - INT to hold reference to role employee has.
+* **manager_id** - INT to hold reference to another employee that manager of the current employee. This field may be null if the employee has no manager.
+* **employee_created** - was added in order to keep track of creation - Issac.
 
 Implement table relationships like specified in the diagram below:
 
@@ -133,22 +134,22 @@ Implement table relationships like specified in the diagram below:
 assets/ .................... README Images.
    scheema.jpg
    snapshot.jpg
-mysql/ ..................... MySQL Details.
+mysql/ .................... MySQL Details.
    connection.js .......... connection pool creation in order to interface with DB.
    initial.js ............. Insert methods for initial seed data load.
    seed.js ................ Data to be inserted during initial seeding load.
 
-orm/ ....................... CRUD operations for Tables and views in DB.
-   budgetview.js .......... View implemented in order to display budget summaries.
+orm/ .......................CRUD operations for Tables and views in DB.
+   budgetview.js .......... View implemented in order to display department budget summaries.
    department.js .......... CRUD operations for the Department table.
-   departmentview.js ...... View designed to display Role-Department relationships.
+   departmentview.js ...... View designed to present and display Roles with alognside their Department relationships.
    employee.js ............ CRUD operations for Employee table.
-   employeeview.js ........ Employee view to display all data linked.
+   employeeview.js ........ Employee view to present employee data linked alognside Roles and Departments.
    managerview.js ......... Displays employees listed as managers.
    role.js ................ CRUD operations for Role table.
 
 app.js ..................... Runs the application and captures input using inquirer.
-scheema.sql ................ Runs the application and captures input using inquirer.
+schema.sql ................. Specifies DB schema.
 seed.sql ................... Lists seeds data.
 
 ```
@@ -196,20 +197,20 @@ seed.sql ................... Lists seeds data.
 
 ## Features
 
-* In order to be able to use async notation, MySQL2 library was required and connection pool logic was needed to be implemented.
+* In order to be able to use `async/await` notation, MySQL2 library was required and connection pool logic was needed to be implemented.
 
-* All database interface methods are invoqued using async/await notation.
+* All database interface methods are invoqued using `async/await` instead of `.then` notation.
 
-* Database invocations all connect, fetch data and detroy the connection afterwards.
+* Database invocations all connect first, then fetch data and detroy the connection afterwards.
 
 * Database Views were implemented in order to decouple data presentation functionality from our CLI app.
 
 ## PendingItems
 
-* `index.js` should be broken into 3 or 4 files. Due to time constraints a lot of functionality wounded up being implemented in that single location.
+* `index.js` should be broken into 3 or 4 files. Due to time constraints a lot of functionality ended up being implemented in that specific location.
 
 ## VideoWalkthrough
 
-The following links provide video walkthroughs explaining the development decisions made for this project and a walkthrough of the usage of the app. 
+The following links provide video walkthrough of the app usage. 
 
 * [Video Demo](https://youtu.be/7Xet7EA5HDY)
